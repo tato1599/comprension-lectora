@@ -31,5 +31,5 @@ jobs:
 
     - name: Transfer files to server
       run: |
-        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "mkdir -p /path/to/your/laravel/app"
-        scp -r . ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/path/to/your/laravel/app
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "mkdir -p /var/www/http/"
+        scp -r . ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/http/
