@@ -49,8 +49,6 @@ jobs:
       run: |
         
         ssh-keyscan -t rsa ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
-        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}
-        ${{ secrets.SERVER_PASSWORD }}
+        ssh -i ${{ secrets.PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "mkdir -p /var/www/http/"
         echo("hola")
-        mkdir -p /var/www/http/
         scp -r . ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/http/
