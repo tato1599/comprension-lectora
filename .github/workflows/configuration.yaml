@@ -34,7 +34,7 @@ jobs:
     - name: Install NPM dependencies & build assets
       run: |
         npm install
-        npm run prod
+        npm run build
 
     - name: Transfer files to server
       run: |
