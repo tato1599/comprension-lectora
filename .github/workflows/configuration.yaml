@@ -13,9 +13,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install Composer dependencies
-      run: composer install --no-interaction --prefer-dist
-
     - name: Generate application key
       run: | 
         cp .env.example .env
@@ -31,11 +28,6 @@ jobs:
         DB_USERNAME: ${{ secrets.DB_USERNAME }}
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
   
-    - name: Install NPM dependencies & build assets
-      run: |
-        npm install
-        npm run build
-        
     - name: Setup SSH Keys and known_hosts
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -53,7 +45,18 @@ jobs:
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "mkdir -p /var/www/http/readSkillsProd/"
         scp -r $GITHUB_WORKSPACE/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/http/readSkillsProd/
     
+    - name: Install Composer dependencies on server
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && composer install --no-interaction --prefer-dist"
+
+    - name: Install NPM dependencies on server
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && npm install"
+
+    - name: Run NPM build on server
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && npm run build"
+
     - name: Run PHP artisan serve
       run: |
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && php artisan serve"
-
