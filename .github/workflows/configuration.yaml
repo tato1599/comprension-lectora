@@ -12,10 +12,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
-    - name: Generate application key
-      run: | 
-        cp .env.example .env
         
     - name: Setup SSH Keys and known_hosts
       env:
@@ -33,6 +29,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "mkdir -p /var/www/http/readSkillsProd/"
         scp -r $GITHUB_WORKSPACE/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/http/readSkillsProd/
+        scp -r $GITHUB_WORKSPACE/.env.example ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/http/readSkillsProd/
     
     - name: Run NPM build on server
       run: |
