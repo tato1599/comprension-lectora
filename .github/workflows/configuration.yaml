@@ -43,6 +43,5 @@ jobs:
       run: |
         
         ssh-keyscan -t rsa ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
-        chmod 600 ~/.ssh/id_rsa
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "mkdir -p /var/www/http/"
         scp -r . ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/http/
