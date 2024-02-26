@@ -1,15 +1,33 @@
+name: readskills deploy
 
-            - name: Laravel Deploy
-  # You may pin to the exact commit or the version.
-  # uses: ngocquyhoang/laravel-deploy@44ec6bf06ce9f68f68f614033fb57a8851f60b53
-  uses: ngocquyhoang/laravel-deploy@laravel-custom-port
-  with:
-    # Deploy user
-    user: 
-    # Deploy host
-    host: 
-    # Path source on server
-    path: 
-    # Deploy owner
-    owner: 
-          
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Composer dependencies
+      run: composer install --no-interaction --prefer-dist
+
+    - name: Generate application key
+      run: php artisan key:generate
+
+    - name: Run database migrations
+      run: php artisan migrate --force
+
+    - name: Install NPM dependencies & build assets
+      run: |
+        npm install
+        npm run prod
+
+    - name: Transfer files to server
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "mkdir -p /path/to/your/laravel/app"
+        scp -r . ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/path/to/your/laravel/app
