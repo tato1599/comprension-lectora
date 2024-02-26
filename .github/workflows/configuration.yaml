@@ -33,6 +33,10 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "mkdir -p /var/www/http/readSkillsProd/"
         scp -r $GITHUB_WORKSPACE/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/http/readSkillsProd/
+    
+    - name: Run Composer update on server
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && composer update --no-interaction --prefer-dist"
 
     - name: Install Composer dependencies on server
       run: |
