@@ -54,7 +54,3 @@ jobs:
     - name: Run NPM build on server
       run: |
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && npm run build"
-
-    - name: Run PHP artisan serve
-      run: |
-        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && php artisan serve"
