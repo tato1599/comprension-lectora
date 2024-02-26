@@ -44,7 +44,7 @@ jobs:
 
     - name: Generate application key on server
       run: |
-        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && php artisan key:generate"
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ $$ cp .env.example .env && php artisan key:generate"
 
     - name: Install NPM dependencies on server
       run: |
