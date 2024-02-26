@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
 
     steps:
     - name: Checkout repository
@@ -16,18 +16,7 @@ jobs:
     - name: Generate application key
       run: | 
         cp .env.example .env
-        php artisan key:generate
         
-    - name: Run database migrations
-      run: php artisan migrate --force
-      env:
-        DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
-        DB_HOST: ${{ secrets.DB_HOST }}
-        DB_PORT: ${{ secrets.DB_PORT }}
-        DB_DATABASE: ${{ secrets.DB_DATABASE }}
-        DB_USERNAME: ${{ secrets.DB_USERNAME }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-  
     - name: Setup SSH Keys and known_hosts
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -36,7 +25,7 @@ jobs:
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         ssh-agent -a $SSH_AUTH_SOCK > /dev/null
         ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
-      
+
     - name: Transfer files to server
       run: |
         ssh-keyscan -t rsa ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
@@ -44,10 +33,14 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "mkdir -p /var/www/http/readSkillsProd/"
         scp -r $GITHUB_WORKSPACE/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/http/readSkillsProd/
-    
+
     - name: Install Composer dependencies on server
       run: |
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && composer install --no-interaction --prefer-dist"
+
+    - name: Generate application key on server
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && php artisan key:generate"
 
     - name: Install NPM dependencies on server
       run: |
