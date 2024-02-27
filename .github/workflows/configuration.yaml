@@ -48,7 +48,6 @@ jobs:
     
     - name: Generate application key on server
       run: |
-        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && cp .env.example .env"
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && php artisan key:generate"
 
   
