@@ -31,13 +31,13 @@ jobs:
         scp -r $GITHUB_WORKSPACE/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/http/readSkillsProd/
         scp -r $GITHUB_WORKSPACE/.env.example ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/http/readSkillsProd/
     
-    - name: Run Composer update on server
-      run: |
-        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && composer update --no-interaction --prefer-dist"
-
     - name: Install Composer dependencies on server
       run: |
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && composer install --no-interaction --prefer-dist"
+    
+    - name: Run Composer update on server
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/http/readSkillsProd/ && composer update --no-interaction --prefer-dist"
 
     - name: Run NPM build on server
       run: |
