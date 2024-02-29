@@ -37,6 +37,7 @@ jobs:
     
     - name: Run Composer update on server
       run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/readSkills/ && cp .env.example .env"
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/readSkills/ && composer update --no-interaction --prefer-dist"
 
     - name: Run NPM build on server
