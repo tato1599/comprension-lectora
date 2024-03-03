@@ -47,7 +47,7 @@
                         <a href="{{ route('login') }}" class="text-xl font-semibold text-black hover:text-gray-900 dark:text-black dark:hover:text-gray-500 focus:outline focus:outline-2 focus:rounded-sm">Inicia sesión</a>
 
                         @if (Route::has('register'))
-                             <a href="{{ route('register') }}" class="ml-8 text-xl font-semibold text-black hover:text-gray-900 dark:text-black dark:hover:text-gray-500 focus:outline focus:outline-2 focus:rounded-sm">Registrate</a>
+                             <a href="{{ route('register') }}" class="ml-8 text-xl font-semibold text-black hover:text-gray-900 dark:text-black dark:hover:text-gray-500 focus:outline focus:outline-2 focus:rounded-sm">Regístrate</a>
                         @endif
                     @endauth
                 </div>
@@ -75,7 +75,7 @@
                         <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm">Inicia sesión</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm">Registrate</a>
+                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm">Regístrate</a>
                         @endif
                     @endauth
                 </div>
