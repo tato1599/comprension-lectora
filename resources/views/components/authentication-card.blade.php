@@ -26,11 +26,6 @@
 
         </div>
 
-        {{-- <div class="flex justify-center">
-            <a href="/">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-16 w-auto" />
-            </a>
-        </div> --}}
         <div class="mt-6">
             {{ $slot }}
         </div>
