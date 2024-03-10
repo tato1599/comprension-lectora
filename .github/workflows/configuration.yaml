@@ -26,7 +26,7 @@ jobs:
         ssh-keyscan -t rsa ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
         echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        rsync -vaz --exclude .env $GITHUB_WORKSPACE/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
+        rsync -vaz --exclude .env $GITHUB_WORKSPACE/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ \ --log-file=rsync_log.txt
         echo "<------ Resources ------>"
         rsync -vaz $GITHUB_WORKSPACE/resources/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
         echo "<------ Completed ------>"
