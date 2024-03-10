@@ -24,6 +24,7 @@ jobs:
         
     - name: Remove old files on server (except .env)
       run: |
+        ssh-keyscan -t rsa ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && rm -rf * .* -x .env"
   
     - name: Transfer files to server
