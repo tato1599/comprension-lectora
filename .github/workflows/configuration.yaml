@@ -28,7 +28,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         rsync -vaz --exclude .env $GITHUB_WORKSPACE/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
         echo "<------ Resources ------>"
-        rsync -vaz $GITHUB_WORKSPACE/resources/components ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/resources/components
+        rsync -vaz $GITHUB_WORKSPACE/resources/views/components ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/resources/views/components
         echo "<------ Completed ------>"
         rsync -vaz --exclude .env $GITHUB_WORKSPACE/.env.example ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
     - name: Change permissions
