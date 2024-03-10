@@ -21,20 +21,13 @@ jobs:
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         ssh-agent -a $SSH_AUTH_SOCK > /dev/null
         ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
-        
-    - name: Remove old files on server (except .env)
-      run: |
-        ssh-keyscan -t rsa ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
-        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && rm -rf * .* -x .env"
-  
-    - name: Transfer files to server
+    - name: Transfer files to server using rsync
       run: |
         ssh-keyscan -t rsa ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
         echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "mkdir -p cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/"
-        scp -r $GITHUB_WORKSPACE/* ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
-        scp -r $GITHUB_WORKSPACE/.env.example ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
+        rsync -avz --exclude='.env' $GITHUB_WORKSPACE/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
+        rsync -avz $GITHUB_WORKSPACE/.env.example ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
     
     - name: Install Composer dependencies on server
       run: |
@@ -43,7 +36,6 @@ jobs:
     - name: Run Composer update on server
       run: |
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && composer update --no-interaction --prefer-dist"
-
     - name: Run NPM build on server
       run: |
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && php artisan jetstream:install livewire"
@@ -54,5 +46,3 @@ jobs:
     - name: Generate application key on server
       run: |
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && php artisan key:generate"
-
-  
