@@ -12,7 +12,7 @@
 
         </button>
     </a>
-    
+
     <!-- Contenedor de imagen con difuminado -->
     <div class="flex-auto flex justify-center items-center"
         style="background-image: url('{{ asset('images/login.jpg') }}'); background-size: auto 100%; background-repeat: no-repeat; background-position: center; height: 100vh; width: 25%; filter: blur(3px);">
