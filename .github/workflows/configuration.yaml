@@ -26,8 +26,8 @@ jobs:
         ssh-keyscan -t rsa ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
         echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        rsync -az --exclude .env $GITHUB_WORKSPACE/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
-        rsync -az --exclude .env $GITHUB_WORKSPACE/.env.example ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
+        rsync -vaz --exclude .env $GITHUB_WORKSPACE/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
+        rsync -vaz --exclude .env $GITHUB_WORKSPACE/.env.example ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
     - name: Change permissions
       run: |
        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/ && chmod 755 readSkills"
