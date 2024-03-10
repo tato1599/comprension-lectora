@@ -29,7 +29,9 @@ jobs:
         rsync -vaz --exclude .env $GITHUB_WORKSPACE/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
         echo "<------ Resources ------>"
         echo $GITHUB_WORKSPACE/
-        rsync -vaz $GITHUB_WORKSPACE/resources ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
+        rsync -vaz $GITHUB_WORKSPACE/resources/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
+        echo $GITHUB_WORKSPACE/resources/
+        echo "<------ Completed ------>"
         rsync -vaz --exclude .env $GITHUB_WORKSPACE/.env.example ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
     - name: Change permissions
       run: |
