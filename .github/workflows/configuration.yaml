@@ -21,7 +21,11 @@ jobs:
         ssh-keyscan github.com >> ~/.ssh/known_hosts
         ssh-agent -a $SSH_AUTH_SOCK > /dev/null
         ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
-
+        
+    - name: Remove old files on server (except .env)
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && rm -rf * .* -x .env"
+  
     - name: Transfer files to server
       run: |
         ssh-keyscan -t rsa ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
