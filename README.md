@@ -1,5 +1,11 @@
+
+# Logo de ITCJ
+
+![Logo de ITCJ](https://www.utcj.edu.mx/CIESPN/PublishingImages/Estructura/ITCJ.png)
+
 [![readskills deploy](https://github.com/tato1599/comprension-lectora/actions/workflows/configuration.yaml/badge.svg?branch=main)](https://github.com/tato1599/comprension-lectora/actions/workflows/configuration.yaml)
 <p align="center"><img src="https://www.utcj.edu.mx/CIESPN/PublishingImages/Estructura/ITCJ.png" width="400" alt="Logo de ITCJ"></p>
+
 
 ## Acerca de Mi Proyecto para ITCJ
 
@@ -11,10 +17,9 @@ Algunas de las características clave incluyen:
 - [Descripción de otra característica importante](URL_DE_DOCUMENTACION_DE_CARACTERISTICA).
 - [Descripción de otra característica importante](URL_DE_DOCUMENTACION_DE_CARACTERISTICA).
 
-
 ## Aprendizaje
 
-Puedes encontrar más información sobre el funcionamiento en la documentación [aquí](URL_DE_DOCUMENTACION). 
+Puedes encontrar más información sobre el funcionamiento en la documentación [aquí](URL_DE_DOCUMENTACION).
 
 ## Contribuciones
 
