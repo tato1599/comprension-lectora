@@ -20,11 +20,12 @@
             </div>
         
             <div class="flex pt-6">
-                <div class="flex-col px-8">
-                    <img src="{{asset('images/itcj.png')}}" alt="image" class="w-full h-auto rounded-lg" />
-                </div>
+              
                 <div class="flex-col">
                     <img src="{{asset('images/tecnm.png')}}" alt="image" class="pd-8" />
+                </div>
+                <div class="flex-col px-8">
+                    <img src="{{asset('images/itcj.png')}}" alt="image" class="w-full h-auto rounded-lg" />
                 </div>
             </div>
         </div>
