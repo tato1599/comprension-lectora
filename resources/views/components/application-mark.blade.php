@@ -1,3 +1,6 @@
-<viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" {{ $attributes }}>
-    <img src="{{ asset('images/libro-abierto.png') }}" alt="Libro Abierto" class="w-full h-auto">
-</svg>
+<div class="-m-1.5 px-0">
+    <a href="/dashboard">
+      <span class="text-3xl font-bold text-blue-600">Read</span>
+      <span class="text-3xl font-bold text-green-600">Skills</span>
+    </a>
+  </div>
