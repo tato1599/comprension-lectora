@@ -2,7 +2,8 @@
 
 use App\Livewire\ComprensionLectora;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Invoice;
+use App\Notifications\InvoicePaid;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,4 +29,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/actividades', function () {
+        return view('activities');
+    })->name('activities');
 });
+
