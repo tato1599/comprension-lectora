@@ -2,8 +2,7 @@
 
 use App\Livewire\ComprensionLectora;
 use Illuminate\Support\Facades\Route;
-use App\Models\Invoice;
-use App\Notifications\InvoicePaid;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/prueba',[ComprensionLectora::class,'render']);
+Route::get('/prueba', [ComprensionLectora::class, 'render']);
 
 Route::middleware([
     'auth:sanctum',
@@ -32,5 +31,9 @@ Route::middleware([
     Route::get('/actividades', function () {
         return view('activities');
     })->name('activities');
-});
+    // Ruta del panel de administrador protegida por el middleware 'role'
 
+    Route::middleware(['role:administrador'])->get('/admin', function () {
+        return view('admin');
+    })->name('admin');
+});
