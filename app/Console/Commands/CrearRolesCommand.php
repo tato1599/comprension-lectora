@@ -33,9 +33,9 @@ class CrearRolesCommand extends Command
         }
 
         // Crear el rol de maestro si no existe
-        if (!Role::where('name', 'maestro')->exists()) {
-            Role::create(['name' => 'maestro']);
-            $this->info('Rol maestro creado exitosamente');
+        if (!Role::where('name', 'docente')->exists()) {
+            Role::create(['name' => 'docente']);
+            $this->info('Rol docente creado exitosamente');
         }
 
         // Crear el rol de alumno si no existe

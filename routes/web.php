@@ -36,4 +36,7 @@ Route::middleware([
     Route::middleware(['role:administrador'])->get('/admin', function () {
         return view('admin');
     })->name('admin');
+    Route::middleware(['role:docente'])->get('/grupos', function () {
+        return view('groups');
+    })->name('groups');
 });
