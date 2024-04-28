@@ -18,9 +18,8 @@ class CreateGroups extends Component
 
     public function store()
     {
-
-        //generar un uuid para el codigo de acceso de 6 caracteres
-        $this->codigo_acceso = Str::random(6);
+        //generar un uuid para el codigo de acceso de 6 caracteres minusculas y numeros
+        $this->codigo_acceso = Str::lower(Str::random(6));
 
         Group::create([
             'nombre' => $this->nombre,
