@@ -17,8 +17,8 @@ class Group extends Model
         'codigo_acceso'
     ];
 
-  
-    
+
+
 
 
 }
