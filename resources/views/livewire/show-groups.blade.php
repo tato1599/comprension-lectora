@@ -8,6 +8,17 @@
         <p class="mt-2 text-gray-600">Fecha de Creación: {{ $group->created_at->format('d/m/Y') }}</p>
     </div>
 
+    {{-- lista de usuarios en el grupo --}}
+    <div class="mt-6">
+        <h2 class="text-xl font-semibold">Usuarios en el Grupo</h2>
+        <ul class="mt-2 text-gray-600">
+            @foreach ($usersInGroup as $user)
+                <li>{{ $user->name }} - {{ $user->email }}</li>
+            @endforeach
+        </ul>
+    </div>
+
+
     <div class="mt-6">
         <a href="{{ route('groups') }}" class="text-blue-600 hover:underline">
             Volver a la lista de grupos
