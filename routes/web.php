@@ -36,4 +36,13 @@ Route::middleware([
     Route::middleware(['role:administrador'])->get('/admin', function () {
         return view('admin');
     })->name('admin');
+    Route::middleware(['role:docente'])->get('/grupos', function () {
+        return view('groups');
+    })->name('groups');
+    Route::middleware(['role:docente'])->get('/grupos/crear', function () {
+        return view('groups-create');
+    })->name('groups.create');
+    Route::middleware(['role:docente'])->get('/grupos/{id}', function () {
+        return view('groups-show');
+    })->name('groups.show');
 });

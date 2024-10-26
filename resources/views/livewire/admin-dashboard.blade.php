@@ -18,8 +18,8 @@
                                 <x-slot name="trigger">
                                     <span class="inline-flex rounded-md">
                                     <button  class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
-                                        @if ($user->hasRole('maestro'))
-                                            Maestro
+                                        @if ($user->hasRole('docente'))
+                                            Docente
                                         @elseif ($user->hasRole('alumno'))
                                             Alumno
                                         @else
@@ -36,7 +36,7 @@
                                 <x-slot name="content">
                                     <div class="fixed left-auto right-auto w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                                         <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                            <x-dropdown-link  wire:click="assignRole({{ $user->id }}, 'maestro')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Maestro</x-dropdown-link>
+                                            <x-dropdown-link  wire:click="assignRole({{ $user->id }}, 'docente')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Docente</x-dropdown-link>
                                             <x-dropdown-link  wire:click="assignRole({{ $user->id }}, 'alumno')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Alumno</x-dropdown-link>
                                         </div>
                                     </div>

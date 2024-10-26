@@ -21,11 +21,11 @@ class AdminDashboard extends Component
     {
         $user = User::find($userId);
         if ($user) {
-            if($role == 'maestro'){
+            if($role == 'docente'){
                 $user->removeRole('alumno');
             }
             if($role == 'alumno'){
-                $user->removeRole('maestro');
+                $user->removeRole('docente');
             }
             $user->assignRole($role); // Esto depende de cómo estés manejando los roles en tu aplicación
         }

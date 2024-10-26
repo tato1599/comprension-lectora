@@ -12,6 +12,7 @@ export default {
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
+        "./node_modules/flowbite/**/*.js"
     ],
 
     theme: {
@@ -22,5 +23,9 @@ export default {
         }
     },
 
-    plugins: [forms, typography],
+    plugins: [forms, typography ],
+    plugins: [
+        require('flowbite/plugin')
+    ],
+    
 };
