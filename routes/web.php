@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\ComprensionLectora;
+use App\Livewire\CrearActividad;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,12 +32,13 @@ Route::middleware([
     Route::get('/actividades', function () {
         return view('activities');
     })->name('activities');
-    // Ruta del panel de administrador protegida por el middleware 'role'
-
+    Route::middleware(['role:docente'])->get('/grupos/{group}/crear-actividad', function () {
+        return view('crear-actividad');
+    })->name('crearActividad');
     Route::middleware(['role:administrador'])->get('/admin', function () {
         return view('admin');
     })->name('admin');
-    Route::middleware(['role:docente'])->get('/grupos', function () {
+    Route::get('/grupos', function () {
         return view('groups');
     })->name('groups');
     Route::middleware(['role:docente'])->get('/grupos/crear', function () {

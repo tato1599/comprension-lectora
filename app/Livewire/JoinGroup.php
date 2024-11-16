@@ -33,7 +33,7 @@ class JoinGroup extends Component
         GruposUsuarios::create([
             'id_grupo' => $group->id,
             'id_usuario' => auth()->user()->id,
-            'rol' => 'estudiante',
+            'rol' => 'alumno',
             'estado' => 'activo',
         ]);
 

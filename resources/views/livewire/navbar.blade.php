@@ -1,10 +1,11 @@
 <header class="bg-green-50">
   <nav class="flex items-center justify-between p-4 mx-auto md:p-8 lg:px-8" aria-label="Global">
-    <div class="flex-none w-36 md:w-64">
-      <div class="-m-1.5 px-0">
+    <div class="flex-none w-16 md:w-64">
+      <div class="">
         <a href="/">
-          <span class="text-2xl font-bold text-blue-600 md:text-3xl">Read</span>
-          <span class="text-2xl font-bold text-green-600 md:text-3xl">Skills</span>
+            <span class="sr-only">Logo</span>
+            <img class="w-full h-16"
+            src="{{ asset('/images/ReadSkillsLogo3.svg') }}" alt="Logo">
         </a>
       </div>
     </div>
@@ -23,7 +24,7 @@
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
       @if (Route::has('login'))
-        <div class="z-10 p-6 text-right sm:fixed sm:top-0 sm:right-0">
+        <div class="z-10 pt-12 text-right sm:fixed sm:top-0 sm:right-0 sm:mr-8">
           @auth
             <a href="{{ url('/dashboard') }}" class="text-lg font-semibold text-black md:text-xl hover:text-gray-900 dark:text-black dark:hover:text-gray-500 focus:outline focus:outline-2 focus:rounded-sm focus:outline-white-500">Dashboard</a>
           @else
@@ -39,7 +40,7 @@
   <!-- Mobile menu, show/hide based on menu open state. -->
   <div id="mobileMenu" class="hidden sm:hidden" role="dialog" aria-modal="true">
     <!-- Background backdrop, show/hide based on slide-over state. -->
-    
+
     <div class="">
       <div class="">
       </div>
