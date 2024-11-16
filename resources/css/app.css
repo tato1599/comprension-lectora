@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+.role-docente {
+    @apply bg-blue-500;
+}
+
+.role-docente-hover:hover {
+    @apply bg-blue-600;
+}
+
+.role-estudiante {
+    @apply bg-green-400;
+}
+
+.role-estudiante-hover:hover {
+    @apply bg-green-500;
+}
+
+.role-padre {
+    @apply bg-yellow-300;
+}
+
+.role-padre-hover:hover {
+    @apply bg-yellow-400;
+}
+
 
 [x-cloak] {
     display: none;

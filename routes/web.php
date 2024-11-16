@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\ComprensionLectora;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-Route::get('/prueba', [ComprensionLectora::class, 'render']);
+Route::get('/registrarse', function () {
+    return view('auth.register');
+})->name('register');
 
 Route::middleware([
     'auth:sanctum',

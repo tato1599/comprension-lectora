@@ -15,7 +15,7 @@
 
     <!-- Contenedor de imagen con difuminado -->
     <div class="hidden sm:flex-auto sm:flex sm:justify-center sm:items-center"
-        style="background-image: url('{{ asset('images/login.jpg') }}'); background-size: auto 100%; background-repeat: no-repeat; background-position: center; height: 100vh; width: 25%; filter: blur(3px);">
+        style="background-image: url('{{ asset('images/login.jpg') }}'); background-size: auto 100%; background-repeat: no-repeat; background-position: center; height: 100vh; width: 10%; filter: blur(3px);">
     </div>
 
     <div class="flex-auto px-8 mt-6 overflow-hidden sm:py-4 sm:rounded-lg">
