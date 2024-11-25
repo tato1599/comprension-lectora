@@ -2,8 +2,7 @@
     <div class="form-group flex gap-4">
         <!-- Rol Docente -->
         <label class="w-[32%] group cursor-pointer">
-            <input type="radio" wire:click="$set('role', 'docente')" wire:model="selectedRole" value="docente"
-                class="hidden peer">
+            <input type="radio" wire:model="selectedRole" value="docente" class="hidden peer">
             <div
                 class="h-48 bg-blue-500 w-[95%] rounded-t-lg border border-l-gray-300 flex items-center justify-center relati">
                 <div
@@ -23,8 +22,7 @@
 
         <!-- Rol Estudiante -->
         <label class="w-[32%] group cursor-pointer">
-            <input type="radio" wire:click="$set('role', 'estudiante')" wire:model="selectedRole" value="estudiante"
-                class="hidden peer">
+            <input type="radio" wire:model="selectedRole" value="estudiante" class="hidden peer">
             <div
                 class="h-48 bg-green-400 w-[95%] rounded-t-lg border border-l-gray-300 flex items-center justify-center relative">
                 <div
@@ -44,8 +42,7 @@
 
         <!-- Rol Padre -->
         <label class="w-[32%] group cursor-pointer">
-            <input type="radio" wire:click="$set('role', 'padre')" wire:model="selectedRole" value="padre"
-                class="hidden peer">
+            <input type="radio" wire:model="selectedRole" value="padre" class="hidden peer">
             <div
                 class="h-48 bg-yellow-300 w-[95%] rounded-t-lg border border-l-gray-300 flex items-center justify-center relative">
                 <div
@@ -64,8 +61,5 @@
         </label>
     </div>
     <input type="text" wire:model="selectedRole" class="w-full p-2 border border-gray-300 rounded-md">
-    <p>
-        Selección: {{ $selectedRole }}
-    </p>
 
 </div>
