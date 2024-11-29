@@ -11,6 +11,7 @@ class JoinGroup extends Component
 {
 
     public $accessCode;
+    public $groupName;
 
     public function store()
     {
@@ -39,5 +40,18 @@ class JoinGroup extends Component
 
         session()->flash('message', 'Te has unido al grupo con éxito');
         return Redirect::to('/grupos');
+    }
+
+
+
+    public function searchGroup()
+    {
+        $group = Group::where('nombre', $this->groupName)->get();
+
+        if ($group) {
+            dd($group);
+        } else {
+            $this->groupName = 'Grupo no encontrado';
+        }
     }
 }

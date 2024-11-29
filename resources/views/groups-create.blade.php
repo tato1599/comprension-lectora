@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
+        <div class="mx-auto max-w-7xl">
+            <div class=" bg-white shadow-xl sm:rounded-lg">
                 <livewire:create-groups />
             </div>
         </div>
