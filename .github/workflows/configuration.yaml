@@ -26,11 +26,8 @@ jobs:
         ssh-keyscan -t rsa ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
         echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        rsync -vaz --exclude .env $GITHUB_WORKSPACE/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
-        echo "<------ Resources ------>"
-        rsync -vaz $GITHUB_WORKSPACE/resources/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
-        echo "<------ Completed ------>"
-        rsync -vaz --exclude .env $GITHUB_WORKSPACE/.env.example ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
+        rsync -vazr --exclude .env $GITHUB_WORKSPACE/ ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
+        rsync -vazr --exclude .env $GITHUB_WORKSPACE/.env.example ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:/var/www/vhosts/readskills.com.mx/httpdocs/readSkills/
     - name: Change permissions
       run: |
        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/ && chmod 755 readSkills"
@@ -43,9 +40,14 @@ jobs:
     - name: Run Composer update on server
       run: |
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && composer update --no-interaction --prefer-dist"
+    - name: Run migrations
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && php artisan migrate --force"
+    - name: Run commands
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && php artisan roles:crear"
     - name: Run NPM build on server
       run: |
-        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && php artisan jetstream:install livewire"
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && nvm use 18"
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && npm install"
         ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/vhosts/readskills.com.mx/httpdocs/readSkills/ && npm run build"

@@ -17,12 +17,14 @@
 
             <div>
                 <x-label for="email" value="{{ __('Correo') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
+                    autofocus autocomplete="username" />
             </div>
 
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Contraseña') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                    autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">
@@ -34,17 +36,21 @@
 
             <div class="flex items-center justify-center mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        href="{{ route('password.request') }}">
                         {{ __('¿Olvidaste tu contraseña?') }}
                     </a>
                 @endif
 
-                
+
             </div>
             <div class="flex items-center justify-center mt-4">
-                <x-button class="ml-3 bg-blue-600">
+                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mx-2">
                     {{ __('Iniciar Sesión') }}
-                </x-button>
+                </button>
+                <a class="bg-green-400 hover:bg-green-500 text-white font-bold py-2 px-4 rounded mx-2"
+                    href="{{ route('register') }}">{{ __('Registrarse') }}
+                </a>
             </div>
         </form>
     </x-authentication-card>
