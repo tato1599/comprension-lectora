@@ -22,6 +22,22 @@ class RegistroUsuario extends Component
 
     public $sexo = 'H';
 
+    public $step = 1;
+
+    public function nextStep()
+    {
+        if ($this->step + 1 > 2) {
+            return;
+        }
+        if ($this->step == 1) {
+            if (empty($this->selectedRole)) {
+                $this->dispatch('toast', ['type' => 'error', 'message' => 'Debes seleccionar un rol']); // instalar sweetalert2
+                return;
+            }
+        }
+        $this->step++;
+    }
+
     public function render()
     {
         return view('livewire.registro-usuario');
