@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.8",
         "laraveles/spanish": "^1.5",
         "livewire/livewire": "^3.0",
+        "power-components/livewire-powergrid": "^6.1",
         "sentry/sentry-laravel": "^4.2",
         "spatie/laravel-permission": "^6.4"
     },

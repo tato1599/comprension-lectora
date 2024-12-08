@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('descripcion')->nullable();
             $table->text('texto')->nullable();
             $table->foreignId('docente_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('grupo_id')->nullable()->constrained('grupos')->onDelete('set null');
-            $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('set null');
+            // $table->foreignId('grupo_id')->nullable()->constrained('grupos')->onDelete('set null');
+            // $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamp('fecha_limite')->nullable();
             $table->string('categoria')->nullable();
             $table->string('estado')->default('pendiente');

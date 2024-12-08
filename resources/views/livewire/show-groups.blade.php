@@ -17,11 +17,9 @@
     {{-- lista de usuarios en el grupo --}}
     <div class="mt-6">
         <h2 class="text-xl font-semibold">Usuarios en el Grupo</h2>
-        <ul class="mt-2 text-gray-600">
-            @foreach ($usersInGroup as $user)
-                <li>{{ $user->name }} - {{ $user->email }}</li>
-            @endforeach
-        </ul>
+        <div>
+            @livewire('grupoUsuariosTable')
+        </div>
     </div>
 
 
