@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class RegistroUsuario extends Component
@@ -22,20 +24,18 @@ class RegistroUsuario extends Component
 
     public $sexo = 'H';
 
-    public $step = 1;
-
-    public function nextStep()
+    public function register()
     {
-        if ($this->step + 1 > 2) {
-            return;
-        }
-        if ($this->step == 1) {
-            if (empty($this->selectedRole)) {
-                $this->dispatch('toast', ['type' => 'error', 'message' => 'Debes seleccionar un rol']); // instalar sweetalert2
-                return;
-            }
-        }
-        $this->step++;
+        $user = User::create([
+            'email' => $this->email,
+            'password' => Hash::make($this->contraseña),
+            'name' => $this->nombre,
+            'last_name' => $this->apellido,
+            'birth_date' => $this->fechaNacimiento,
+            'sex' => $this->sexo,
+        ]);
+
+        $user->assignRole($this->selectedRole);
     }
 
     public function render()
