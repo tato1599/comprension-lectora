@@ -50,7 +50,11 @@ class RegistroUsuario extends Component
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->dispatch('toast', ...['type' => 'error', 'message' => 'Error: ' . $e->getMessage()]);
+            $message = "Error al registrar usuario";
+            if ($e->getCode() == 23505) {
+                $message = "El correo electrónico ya está registrado";
+            }
+            $this->dispatch('toast', ...['type' => 'error', 'message' => $message]);
             return;
         }
         // autenticar usuario
