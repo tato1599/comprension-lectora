@@ -29,4 +29,18 @@
     @livewireScripts
 </body>
 
+<script>
+    document.addEventListener('livewire:init', (event) => {
+        window.Livewire.on('toast', function({
+            type,
+            message
+        }) {
+            window.Toast.fire({
+                icon: type,
+                title: message
+            });
+        });
+    });
+</script>
+
 </html>
