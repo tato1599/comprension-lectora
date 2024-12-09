@@ -24,14 +24,20 @@
                                     <textarea id="description" name="description" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingrese la descripción de la actividad" required></textarea>
                                 </div>
 
-                                <!-- Selector de tipo de entrada -->
+                                <!-- Radio buttons para seleccionar -->
                                 <div>
-                                    <label for="input-type" class="block mb-2 text-sm font-medium text-gray-900">Tipo de entrada</label>
-                                    <select id="input-type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
-                                        <option value="" disabled selected>Seleccione una opción</option>
-                                        <option value="file">Subir archivo</option>
-                                        <option value="text">Escribir texto</option>
-                                    </select>
+                                    <label class="block mb-2 text-sm font-medium text-gray-900">Seleccione el tipo de entrada</label>
+
+                                    <div class="flex flex-col-2 gap-3">
+                                    <div class="flex items-center ">
+                                        <input id="option-file" type="radio" name="input-type" value="file" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500" required>
+                                        <label for="option-file" class="ml-2 text-sm font-medium text-gray-900">Subir archivo</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="option-text" type="radio" name="input-type" value="text" class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 focus:ring-primary-500" required>
+                                        <label for="option-text" class="ml-2 text-sm font-medium text-gray-900">Escribir texto</label>
+                                    </div>
+                                </div>
                                 </div>
 
                                 <!-- Subir archivo -->
@@ -61,18 +67,21 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const inputTypeSelector = document.getElementById('input-type');
+        const radioFile = document.getElementById('option-file');
+        const radioText = document.getElementById('option-text');
         const fileInputContainer = document.getElementById('file-input-container');
         const textInputContainer = document.getElementById('text-input-container');
 
-        inputTypeSelector.addEventListener('change', function () {
-            const selectedValue = inputTypeSelector.value;
-
-            // Mostrar u ocultar los campos según la selección
-            if (selectedValue === 'file') {
+        // Mostrar/ocultar campos según la selección del radio button
+        radioFile.addEventListener('change', function () {
+            if (radioFile.checked) {
                 fileInputContainer.classList.remove('hidden');
                 textInputContainer.classList.add('hidden');
-            } else if (selectedValue === 'text') {
+            }
+        });
+
+        radioText.addEventListener('change', function () {
+            if (radioText.checked) {
                 textInputContainer.classList.remove('hidden');
                 fileInputContainer.classList.add('hidden');
             }
