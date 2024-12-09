@@ -76,8 +76,8 @@
             <div class="flex justify-between">
                 <div class="w-[48%]">
                     <x-label for="name" value="Nombre" />
-                    <x-input id="name" class="block mt-1 w-full border-red-500" type="text" name="name"
-                        x-model="name" autofocus autocomplete="name" />
+                    <x-input id="name" class="block mt-1 w-full" type="text" name="name" x-model="name"
+                        autofocus autocomplete="name" />
                 </div>
                 <div class="w-[48%]">
                     <x-label for="lastname" value="Apellidos" />
@@ -93,8 +93,9 @@
                 </div>
                 <div class="w-[48%]">
                     <x-label for="sex" value="Sexo" />
-                    <select id="sex" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm" name="sex"
-                        x-model="sex" autocomplete="sex">
+                    <select id="sex"
+                        class="block mt-1 w-full border focus:border-indigo-500 focus:ring-indigo-500 border-gray-300 rounded-md shadow-sm py-1.5"
+                        name="sex" x-model="sex" autocomplete="sex">
                         <option value="M">Masculino</option>
                         <option value="F">Femenino</option>
                         <option value="O">Otro</option>
@@ -193,6 +194,7 @@
                         });
                         return;
                     }
+                    $wire.register();
                 },
             }));
         </script>
