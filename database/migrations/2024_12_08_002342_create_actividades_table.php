@@ -14,12 +14,9 @@ return new class extends Migration
         Schema::create('actividades', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->text('descripcion')->nullable();
+            $table->string('descripcion')->nullable();
             $table->text('texto')->nullable();
-            $table->foreignId('docente_id')->constrained('users')->onDelete('cascade');
-            // $table->foreignId('grupo_id')->nullable()->constrained('grupos')->onDelete('set null');
-            // $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('set null');
-            $table->timestamp('fecha_limite')->nullable();
+            $table->foreignId('docente_id')->constrained('users');
             $table->string('categoria')->nullable();
             $table->string('estado')->default('pendiente');
             $table->string('ruta_pdf')->nullable();
