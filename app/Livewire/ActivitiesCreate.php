@@ -19,7 +19,6 @@ class ActivitiesCreate extends Component
 
     public function store()
     {
-        // Validar que el texto no esté vacío
         if (empty($this->activityText)) {
             session()->flash('error', 'El texto de la actividad no puede estar vacío.');
             return;
@@ -30,25 +29,24 @@ class ActivitiesCreate extends Component
         $ollamaService = new OllamaService();
         $response = $ollamaService->generateResponse($prompt);
 
-        // Manejo de la respuesta
         if (isset($response['error'])) {
             session()->flash('error', $response['message']);
         } else {
             try {
-                // Decodificar el JSON de la respuesta
+
                 $decodedResponse = json_decode($response['response'], true);
 
                 if (json_last_error() === JSON_ERROR_NONE && is_array($decodedResponse)) {
                     $this->questions = $decodedResponse; // Asignar las preguntas directamente
 
-                    // Crear la actividad en la base de datos
+
                     Activitie::create([
-                        'titulo' => 'Nueva Actividad', // Puedes personalizar esto
-                        'descripcion' => 'Actividad generada automáticamente', // También puedes personalizarlo
+                        'titulo' => 'Nueva Actividad',
+                        'descripcion' => 'Actividad generada automáticamente',
                         'texto' => $this->activityText,
-                        'docente_id' => auth()->id(), // Suponiendo que el docente está autenticado
-                        'grupo_id' => 1, // Reemplaza con el ID real del grupo
-                        'categoria' => 'Lectura', // Puedes definir una categoría fija o variable
+                        'docente_id' => auth()->id(),
+                        'grupo_id' => 1,
+                        'categoria' => 'Lectura',
                         'preguntas' => $this->questions,
                     ]);
 
