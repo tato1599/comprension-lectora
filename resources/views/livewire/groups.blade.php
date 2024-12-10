@@ -35,9 +35,9 @@
                 </a>
                 <div class="border-t border-gray-200">
                     <div>
-                        <div class="px-4 py-4 bg-gray-50 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <h5 class="text-sm font-medium text-gray-500">Código de Acceso</h5>
-                            <h5 class="mt-1 text-sm text-gray-900 sm:col-span-2">{{ $group->codigo_acceso }}</h5>
+                        <div class="px-4 py-4 bg-gray-50 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
+                            <h5 class="text-sm font-medium text-gray-500">Código de Acceso: {{ $group->codigo_corto }}
+                            </h5>
                         </div>
                     </div>
                 </div>

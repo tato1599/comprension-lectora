@@ -1,14 +1,14 @@
 <div>
     <div x-data="registroUsuario">
-        <form @submit.prevent="register">
+        <form @submit.prevent="registrar">
             <!-- Paso 1 -->
-            <div x-show="step == 1">
+            <div x-show="paso == 1">
                 <div class="form-group flex gap-4">
                     <!-- Rol Docente -->
                     <label class="w-[32%] group cursor-pointer">
-                        <input type="radio" x-model="selectedRole" value="docente" class="hidden peer">
+                        <input type="radio" x-model="rolSeleccionado" value="docente" class="hidden peer">
                         <div
-                            class="h-48 bg-color-3 w-[95%] rounded-t-lg border border-l-gray-300 flex items-center justify-center relati">
+                            class="h-48 bg-color-3 w-[95%] rounded-t-lg border border-l-gray-300 flex items-center justify-center relative">
                             <div
                                 class="w-[5.5em] h-[5.5em] rounded-full bg-color-3-2 flex items-center justify-center group-hover:w-[6.5em] group-hover:h-[6.5em] group-hover:bg-color-3-2 absolute transition-all duration-300">
                                 <!-- Icono de Docente -->
@@ -27,7 +27,7 @@
 
                     <!-- Rol Padre -->
                     <label class="w-[32%] group cursor-pointer">
-                        <input type="radio" x-model="selectedRole" value="padre" class="hidden peer">
+                        <input type="radio" x-model="rolSeleccionado" value="padre" class="hidden peer">
                         <div
                             class="h-48 bg-color-5 w-[95%] rounded-t-lg border border-l-gray-300 flex items-center justify-center relative">
                             <div
@@ -48,7 +48,7 @@
 
                     <!-- Rol Estudiante -->
                     <label class="w-[32%] group cursor-pointer">
-                        <input type="radio" x-model="selectedRole" value="estudiante" class="hidden peer">
+                        <input type="radio" x-model="rolSeleccionado" value="estudiante" class="hidden peer">
                         <div
                             class="h-48 bg-color-1 w-[95%] rounded-t-lg border border-l-gray-300 flex items-center justify-center relative">
                             <div
@@ -70,36 +70,36 @@
 
                 <!-- Botón para avanzar al siguiente paso -->
                 <div class="flex justify-end mt-4">
-                    <button @click.prevent="nextStep" class="btn rounded-lg bg-black text-white px-4 py-2 mr-3"
+                    <button @click.prevent="siguientePaso" class="btn rounded-lg bg-black text-white px-4 py-2 mr-3"
                         title="siguiente">Siguiente</button>
                 </div>
             </div>
 
             <!-- Paso 2 -->
-            <div x-show="step == 2">
+            <div x-show="paso == 2">
                 <div class="flex justify-between">
                     <div class="w-[48%]">
-                        <x-label for="name" value="Nombre" />
-                        <x-input id="name" class="block mt-1 w-full" type="text" name="name" x-model="name"
-                            autofocus autocomplete="name" />
+                        <x-label for="nombre" value="Nombre" />
+                        <x-input id="nombre" class="block mt-1 w-full" type="text" name="nombre" x-model="nombre"
+                            autofocus autocomplete="nombre" />
                     </div>
                     <div class="w-[48%]">
-                        <x-label for="lastname" value="Apellidos" />
-                        <x-input id="lastname" class="block mt-1 w-full" type="text" name="lastname"
-                            x-model="lastname" autocomplete="lastname" />
+                        <x-label for="apellido" value="Apellidos" />
+                        <x-input id="apellido" class="block mt-1 w-full" type="text" name="apellido"
+                            x-model="apellido" autocomplete="apellido" />
                     </div>
                 </div>
                 <div class="flex justify-between mt-4">
                     <div class="w-[48%]">
-                        <x-label for="dob" value="Fecha de nacimiento" />
-                        <x-input id="dob" class="block mt-1 w-full" type="date" name="dob"
-                            autocomplete="name" x-model="dob" format="yyyy/mm/dd" />
+                        <x-label for="fechaNacimiento" value="Fecha de nacimiento" />
+                        <x-input id="fechaNacimiento" class="block mt-1 w-full" type="date" name="fechaNacimiento"
+                            autocomplete="fechaNacimiento" x-model="fechaNacimiento" />
                     </div>
                     <div class="w-[48%]">
-                        <x-label for="sex" value="Sexo" />
-                        <select id="sex"
+                        <x-label for="sexo" value="Sexo" />
+                        <select id="sexo"
                             class="block mt-1 w-full border focus:border-indigo-500 focus:ring-indigo-500 border-gray-300 rounded-md shadow-sm py-1.5"
-                            name="sex" x-model="sex" autocomplete="sex">
+                            name="sexo" x-model="sexo" autocomplete="sexo">
                             <option value="M">Masculino</option>
                             <option value="F">Femenino</option>
                             <option value="O">Otro</option>
@@ -107,24 +107,24 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <x-label for="email" value="E-mail" />
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" x-model="email"
-                        autocomplete="username" />
+                    <x-label for="email" value="Correo electrónico" />
+                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" x-model="correo"
+                        autocomplete="correo" />
                 </div>
                 <div class="flex justify-between mt-4">
                     <div class="w-[48%]">
-                        <x-label for="password" value="Contraseña" />
-                        <x-input id="password" class="block mt-1 w-full" type="password" name="password"
-                            x-model="password" autocomplete="name" format="yyyy/mm/dd" />
+                        <x-label for="contraseña" value="Contraseña" />
+                        <x-input id="contraseña" class="block mt-1 w-full" type="password" name="contraseña"
+                            x-model="contraseña" />
                     </div>
                     <div class="w-[48%]">
-                        <x-label for="confirm_password" value="Confirmar Contraseña" />
-                        <x-input id="confirm_password" class="block mt-1 w-full" type="password"
-                            name="confirm_password" x-model="confirm_password" autocomplete="confirm_password" />
+                        <x-label for="confirmarContraseña" value="Confirmar contraseña" />
+                        <x-input id="confirmarContraseña" class="block mt-1 w-full" type="password"
+                            name="confirmarContraseña" x-model="confirmarContraseña" />
                     </div>
                 </div>
                 <div class="flex justify-between mt-4">
-                    <button @click.prevent="prevStep"
+                    <button @click.prevent="pasoAnterior"
                         class="btn rounded-lg bg-black text-white px-4 py-2">Anterior</button>
                     <button type="submit" class="btn rounded-lg bg-black text-white px-4 py-2">Registrarse</button>
                 </div>
@@ -135,72 +135,74 @@
     @script
         <script>
             Alpine.data('registroUsuario', () => ({
-                selectedRole: $wire.entangle('selectedRole'),
-                name: $wire.entangle('nombre'),
-                lastname: $wire.entangle('apellido'),
-                dob: $wire.entangle('fechaNacimiento'),
-                sex: $wire.entangle('sexo'),
-                email: $wire.entangle('email'),
-                password: $wire.entangle('contraseña'),
-                confirm_password: $wire.entangle('confirmarContraseña'),
-                step: 1,
-                nextStep() {
-                    if (!this.selectedRole) {
-                        window.Toast.fire({
+                rolSeleccionado: $wire.entangle('rolSeleccionado'),
+                nombre: $wire.entangle('nombre'),
+                apellido: $wire.entangle('apellido'),
+                fechaNacimiento: $wire.entangle('fechaNacimiento'),
+                sexo: $wire.entangle('sexo'),
+                correo: $wire.entangle('correo'),
+                contraseña: $wire.entangle('contraseña'),
+                confirmarContraseña: $wire.entangle('confirmarContraseña'),
+                paso: 1,
+                siguientePaso() {
+                    if (!this.rolSeleccionado) {
+                        Toast.fire({
                             icon: 'error',
                             title: 'Debes seleccionar un rol para continuar'
                         });
                         return;
                     }
-                    this.step = 2;
+                    this.paso = 2;
                 },
-                prevStep() {
-                    this.step = 1;
+                pasoAnterior() {
+                    this.paso = 1;
                 },
-                register() {
-                    to_check = ['name', 'lastname', 'dob', 'sex', 'email', 'password', 'confirm_password'];
-                    fields = {
-                        name: 'Nombre',
-                        lastname: 'Apellidos',
-                        dob: 'Fecha de nacimiento',
-                        sex: 'Sexo',
-                        email: 'E-mail',
-                        password: 'Contraseña',
-                        confirm_password: 'Confirmar Contraseña'
-                    }
-                    to_check.forEach((field) => {
-                        if (!this[field] || this[field] == '') {
+                registrar() {
+                    const camposRequeridos = ['nombre', 'apellido', 'fechaNacimiento', 'sexo', 'correo',
+                        'contraseña', 'confirmarContraseña'
+                    ];
+                    const etiquetas = {
+                        nombre: 'Nombre',
+                        apellido: 'Apellidos',
+                        fechaNacimiento: 'Fecha de nacimiento',
+                        sexo: 'Sexo',
+                        correo: 'Correo electrónico',
+                        contraseña: 'Contraseña',
+                        confirmarContraseña: 'Confirmar contraseña'
+                    };
+                    for (let campo of camposRequeridos) {
+                        if (!this[campo] || this[campo] === '') {
                             window.Toast.fire({
                                 icon: 'error',
-                                title: `El campo ${fields[field]} es requerido`
+                                title: `El campo ${etiquetas[campo]} es obligatorio`
                             });
                             return;
                         }
-                    });
-                    regex = /^[a-zA-Z\s]*$/;
-                    if (!regex.test(this.name) || !regex.test(this.lastname)) {
+                    }
+                    const regexNombre = /^[a-zA-Z\s]*$/;
+                    if (!regexNombre.test(this.nombre) || !regexNombre.test(this.apellido)) {
                         window.Toast.fire({
                             icon: 'error',
                             title: 'El nombre y los apellidos no deben contener números ni caracteres especiales'
                         });
                         return;
                     }
-                    regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-                    if (!regex.test(this.email)) {
+                    const regexCorreo = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                    if (!regexCorreo.test(this.correo)) {
                         window.Toast.fire({
                             icon: 'error',
                             title: 'El correo electrónico no es válido'
                         });
                         return;
                     }
-                    if (this.password !== this.confirm_password) {
+                    if (this.contraseña !== this.confirmarContraseña) {
                         window.Toast.fire({
                             icon: 'error',
                             title: 'Las contraseñas no coinciden'
                         });
                         return;
                     }
-                    $wire.register();
+                    $wire.registrar();
                 },
             }));
         </script>

@@ -9,49 +9,59 @@ use Illuminate\Support\Facades\Redirect;
 
 class JoinGroup extends Component
 {
+    public $codigoAcceso;
 
-    public $accessCode;
-    public $groupName;
+    public string $terminoBusqueda = '';
 
-    public function store()
+    public array $grupos = [];
+
+    public function unirseGrupo($params)
     {
-        //buscar el grupo con el codigo de acceso
-        $group = Group::where('codigo_acceso', $this->accessCode)->first();
+        $idGrupo = $params["idGrupo"];
+        $codigoAcceso = $params["codigo_acceso"] ?? null;
 
-        //si el grupo no existe
-        if (!$group) {
-            session()->flash('message', 'El grupo no existe');
-            return Redirect::to('/grupos');
+        $grupo = Group::find($idGrupo);
+
+        // Si el grupo no existe
+        if (!$grupo) {
+            $this->dispatch('toast', ...['message' => 'El grupo no existe', 'type' => 'error']);
+            return;
         }
 
-        //si el usuario ya esta en el grupo
-        if (GruposUsuarios::where('id_grupo', $group->id)->where('id_usuario', auth()->user()->id)->first()) {
-            session()->flash('message', 'Ya eres miembro de este grupo');
-            return Redirect::to('/grupos');
+        if (!empty($grupo->codigo_acceso) && $grupo->codigo_acceso !== $codigoAcceso) {
+            $this->dispatch('toast', ...['message' => 'Código de acceso incorrecto', 'type' => 'error']);
+            return;
         }
 
-        //si el grupo existe y el usuario no es miembro
+        // Si el grupo existe y el usuario no es miembro
         GruposUsuarios::create([
-            'id_grupo' => $group->id,
+            'id_grupo' => $grupo->id,
             'id_usuario' => auth()->user()->id,
             'rol' => 'alumno',
             'estado' => 'activo',
         ]);
 
-        session()->flash('message', 'Te has unido al grupo con éxito');
-        return Redirect::to('/grupos');
+        $this->dispatch('toast', ...['message' => 'Te has unido al grupo', 'type' => 'success']);
+        return Redirect::to('/grupos/' . $grupo->id);
     }
 
-
-
-    public function searchGroup()
+    public function buscarGrupos()
     {
-        $group = Group::where('nombre', $this->groupName)->get();
+        $grupos = Group::query()
+            ->where('nombre', "ilike", "%{$this->terminoBusqueda}%")
+            ->orWhere('codigo_corto', "ilike", "%{$this->terminoBusqueda}%")
+            ->addSelect([
+                'rol' => GruposUsuarios::select('rol')
+                    ->whereColumn('id_grupo', 'groups.id')
+                    ->where('id_usuario', auth()->user()->id)
+                    ->limit(1)
+            ])
+            ->get();
 
-        if ($group) {
-            dd($group);
-        } else {
-            $this->groupName = 'Grupo no encontrado';
+        if ($grupos->isEmpty()) {
+            $this->dispatch('toast', ...['message' => 'No se encontraron grupos', 'type' => 'warning']);
+            return;
         }
+        $this->grupos = $grupos->toArray();
     }
 }
