@@ -14,11 +14,8 @@ class Group extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'codigo_acceso'
+        'codigo_acceso',
+        'codigo_corto',
+        'owner_id',
     ];
-
-
-
-
-
 }

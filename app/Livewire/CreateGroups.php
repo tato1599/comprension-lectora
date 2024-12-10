@@ -6,31 +6,54 @@ use App\Models\Group;
 use App\Models\GruposUsuarios;
 use Illuminate\Support\Facades\Redirect;
 use Livewire\Component;
-use Illuminate\Support\Str;
 
 
 class CreateGroups extends Component
 {
-    //store
     public $nombre;
+
     public $descripcion;
+
     public $codigo_acceso;
 
-    public function store()
+    public function crearGrupo()
     {
-        //generar un uuid para el codigo de acceso de 6 caracteres minusculas y numeros
-        $this->codigo_acceso = Str::lower(Str::random(6));
+        $this->nombre = ucwords(strtolower($this->nombre));
+        //el codigo corto son las iniciales del nombre del grupo mas las iniciales del maestro mas el año, si el codigo corto ya existe se le agrega un numero al final
+        $codigo_corto = '';
+        $nombre = explode(' ', trim($this->nombre));
+        // iniciales del nombre
+        foreach ($nombre as $palabra) {
+            if (strlen($palabra) <= 2) {
+                continue;
+            }
+            $codigo_corto .= $palabra[0];
+        }
+        $codigo_corto .= '-';
+        // iniciales del maestro
+        $names = explode(' ', auth()->user()->name);
+        $last_names = explode(' ', auth()->user()->last_name);
+        foreach ($names as $names) {
+            $codigo_corto .= strtoupper($names[0]);
+        }
+        foreach ($last_names as $last_names) {
+            $codigo_corto .= strtoupper($last_names[0]);
+        }
+        $codigo_corto .= '-' . date('Y');
 
-        Group::create([
+
+        $group = Group::create([
             'nombre' => $this->nombre,
             'descripcion' => $this->descripcion,
-            'codigo_acceso' => $this->codigo_acceso,
+            'codigo_acceso' => empty($this->codigo_acceso) ? null : $this->codigo_acceso,
+            'codigo_corto' => $codigo_corto,
+            'owner_id' => auth()->user()->id,
         ]);
 
         GruposUsuarios::create([
-            'id_grupo' => Group::latest('id')->first()->id,
+            'id_grupo' => $group->id,
             'id_usuario' => auth()->user()->id,
-            'rol' => 'docente',
+            'rol' => 'owner',
             'estado' => 'activo',
         ]);
 
@@ -39,8 +62,6 @@ class CreateGroups extends Component
             'descripcion',
             'codigo_acceso',
         ]);
-
-        session()->flash('message', 'Grupo creado con éxito');
         return Redirect::to('/grupos');
     }
 

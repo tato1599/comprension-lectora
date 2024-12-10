@@ -25,14 +25,14 @@
     <div class="min-h-screen bg-white">
         @livewire('navigation-menu')
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white">
-                    <div class=" px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+        <!-- Page Heading -->
+        @if (isset($header))
+            <header class="bg-white">
+                <div class=" px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
+            </header>
+        @endif
 
 
 
@@ -49,13 +49,10 @@
 
 <script>
     document.addEventListener('livewire:init', (event) => {
-        window.livewire.on('toast', function({
+        window.Livewire.on('toast', function({
             type,
             message
         }) {
-            console.log(event.detail);
-            type = event.detail.type;
-            message = event.detail.message;
             window.Toast.fire({
                 icon: type,
                 title: message

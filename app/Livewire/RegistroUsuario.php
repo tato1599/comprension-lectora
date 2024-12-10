@@ -9,9 +9,9 @@ use Livewire\Component;
 
 class RegistroUsuario extends Component
 {
-    public $selectedRole;
+    public $rolSeleccionado;
 
-    public $email = '';
+    public $correo = '';
 
     public $contraseña = '';
 
@@ -25,18 +25,21 @@ class RegistroUsuario extends Component
 
     public $sexo = 'H';
 
-    public function register()
+    public function registrar()
     {
         DB::beginTransaction();
+        $this->nombre = ucwords(strtolower($this->nombre));
+        $this->apellido = ucwords(strtolower($this->apellido));
         try {
             $user = User::create([
-                'email' => $this->email,
+                'email' => $this->correo,
                 'password' => Hash::make($this->contraseña),
                 'name' => $this->nombre,
                 'last_name' => $this->apellido,
                 'birth_date' => $this->fechaNacimiento,
+                'sex' => $this->sexo,
             ]);
-            switch ($this->selectedRole) {
+            switch ($this->rolSeleccionado) {
                 case 'docente':
                     $user->assignRole('docente');
                     break;
@@ -50,7 +53,11 @@ class RegistroUsuario extends Component
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->dispatch('toast', ...['type' => 'error', 'message' => 'Error: ' . $e->getMessage()]);
+            $message = "Error al registrar usuario";
+            if ($e->getCode() == 23505) {
+                $message = "El correo electrónico ya está registrado";
+            }
+            $this->dispatch('toast', ...['type' => 'error', 'message' => $message]);
             return;
         }
         // autenticar usuario
