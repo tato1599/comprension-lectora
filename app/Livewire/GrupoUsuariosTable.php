@@ -3,11 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\GruposUsuarios;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
-use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
 use PowerComponents\LivewirePowerGrid\Facades\Rule;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
@@ -17,9 +15,15 @@ final class GrupoUsuariosTable extends PowerGridComponent
 {
     public string $tableName = 'grupo-usuarios-table-gok1ek-table';
 
+    public $groupId;
+
+    public $role;
+
     public function setUp(): array
     {
-
+        $this->role = GruposUsuarios::where('id_usuario', auth()->id())
+            ->where('id_grupo', $this->groupId)
+            ->first()->rol;
         return [
             PowerGrid::header()
                 ->showSearchInput(),
@@ -31,7 +35,7 @@ final class GrupoUsuariosTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return GruposUsuarios::query()->with('grupo', 'usuario');
+        return GruposUsuarios::query()->with('grupo', 'usuario')->where('id_grupo', $this->groupId);
     }
 
     public function relationSearch(): array
@@ -43,7 +47,7 @@ final class GrupoUsuariosTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('nombre_usuario' , fn($row) => $row->usuario->name)
+            ->add('nombre_usuario', fn($row) => $row->usuario->name)
             ->add('correo_usuario', fn($row) => $row->usuario->email)
             ->add('rol')
             ->add('estado')
@@ -74,14 +78,13 @@ final class GrupoUsuariosTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [
-        ];
+        return [];
     }
 
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert('.$rowId.')');
+        $this->js('alert(' . $rowId . ')');
     }
 
     public function actions(GruposUsuarios $row): array
@@ -98,12 +101,9 @@ final class GrupoUsuariosTable extends PowerGridComponent
     public function actionRules($row): array
     {
         return [
-
             Rule::button('edit')
-                ->when(fn($row) => $row->id_usuario === auth()->id())
+                ->when(fn($row) => $row->id_usuario === auth()->id() || $this->role === 'alumno')
                 ->hide(),
-
         ];
     }
-
 }
