@@ -19,10 +19,8 @@ return new class extends Migration
             $table->foreignId('docente_id')->constrained('users');
             $table->foreignId('grupo_id')->constrained('groups');
             $table->string('categoria')->nullable();
-            $table->string('estado')->default('pendiente');
             $table->string('ruta_pdf')->nullable();
             $table->boolean('es_publica')->default(false);
-            $table->integer('tiempo_lectura')->nullable();
             $table->json('preguntas')->nullable();
             $table->timestamps();
         });
