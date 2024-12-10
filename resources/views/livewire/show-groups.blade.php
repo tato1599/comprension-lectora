@@ -49,8 +49,7 @@
         <div x-show="activeTab === 'actividades'">
             <h2 class="text-2xl font-bold text-gray-900">Actividades</h2>
             <div class="mt-4">
-                <!-- Aquí puedes agregar un componente o una lista de actividades -->
-                <p>Lista de Actividades</p>
+                @livewire('activities-list', ['groupId' => $group->id])
             </div>
         </div>
     </div>
