@@ -17,29 +17,32 @@ class OllamaService
      * Realiza una consulta a Ollama.
      *
      * @param string $prompt
-     * @param array $options
      * @return array
      */
-    public function generateResponse(string $prompt, array $options = []): array
+    public function generateResponse(string $prompt)
     {
         try {
+            // Enviar la solicitud con los datos JSON
             $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('OLLAMA_API_KEY'),
                 'Content-Type' => 'application/json',
-            ])->post("{$this->baseUrl}/generate", [
+            ])->post($this->baseUrl, [
+                'model' => 'llama3.2',
                 'prompt' => $prompt,
-                'options' => $options,
+                'stream' => false,
             ]);
 
+            // Verificar si la respuesta es exitosa
             if ($response->successful()) {
-                return $response->json();
+                return $response->json(); // Decodificar automáticamente el JSON
             }
 
+            // Manejo de errores de API
             return [
                 'error' => 'API Error',
                 'message' => $response->body(),
             ];
         } catch (\Exception $e) {
+            // Manejo de excepciones
             return [
                 'error' => 'Exception',
                 'message' => $e->getMessage(),

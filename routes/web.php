@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\ActivitiesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +33,7 @@ Route::middleware([
     Route::get('/actividades', function () {
         return view('activities');
     })->name('activities');
-    Route::middleware(['role:docente'])->get('/grupos/{group}/crear-actividad', function () {
+    Route::middleware(['role:docente'])->get(ActivitiesController::class, function () {
         return view('crear-actividad');
     })->name('crearActividad');
     Route::middleware(['role:administrador'])->get('/admin', function () {

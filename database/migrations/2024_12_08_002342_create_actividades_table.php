@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('descripcion')->nullable();
             $table->text('texto')->nullable();
             $table->foreignId('docente_id')->constrained('users');
+            $table->foreignId('grupo_id')->constrained('groups');
             $table->string('categoria')->nullable();
             $table->string('estado')->default('pendiente');
             $table->string('ruta_pdf')->nullable();

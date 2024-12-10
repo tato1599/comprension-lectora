@@ -12,7 +12,7 @@ class ActivitiesController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -20,7 +20,7 @@ class ActivitiesController extends Controller
      */
     public function create()
     {
-        
+        return view('activities-create');
     }
 
     /**
