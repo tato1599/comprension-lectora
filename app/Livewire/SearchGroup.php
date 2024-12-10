@@ -7,13 +7,26 @@ use App\Models\Group;
 use App\Models\GruposUsuarios;
 use Illuminate\Support\Facades\Redirect;
 
-class JoinGroup extends Component
+class SearchGroup extends Component
 {
     public $codigoAcceso;
 
     public string $terminoBusqueda = '';
 
     public array $grupos = [];
+
+    public function mount()
+    {
+        $this->grupos = Group::whereIn('id', GruposUsuarios::where('id_usuario', auth()->id())->pluck('id_grupo'))
+            ->addSelect([
+                'rol' => GruposUsuarios::select('rol')
+                    ->whereColumn('id_grupo', 'groups.id')
+                    ->where('id_usuario', auth()->user()->id)
+                    ->limit(1)
+            ])
+            ->get()
+            ->toArray();
+    }
 
     public function unirseGrupo($params)
     {
