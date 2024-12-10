@@ -22,7 +22,7 @@
             <div class="flex justify-between">
                 <h1 class="text-2xl font-bold text-gray-900">{{ $group->nombre }}</h1>
                 <div class="mt-6">
-                    <a href="{{ route('crearActividad', $group->id) }}"
+                    <a href="{{ route('crear-actividad', $group->id) }}"
                         class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">
                         Crear Actividad
                     </a>
