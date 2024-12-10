@@ -33,9 +33,7 @@ Route::middleware([
     Route::get('/actividades', function () {
         return view('activities');
     })->name('activities');
-    Route::middleware(['role:docente'])->get(ActivitiesController::class, function () {
-        return view('crear-actividad');
-    })->name('crearActividad');
+    Route::middleware(['role:docente'])->get('/actividades/crear/{groupId}', [ActivitiesController::class, 'create'])->name('crear-actividad');
     Route::get('/grupos', function () {
         return view('groups');
     })->name('groups');

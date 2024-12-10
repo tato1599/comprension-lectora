@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class ActivitiesController extends Controller
 {
+    public $groupId;
     /**
      * Display a listing of the resource.
      */
@@ -18,9 +19,9 @@ class ActivitiesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return view('activities-create');
+    public function create($groupId)
+{
+        return view('crear-actividad', [  'groupId' => $groupId ]);
     }
 
     /**

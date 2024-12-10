@@ -1,7 +1,7 @@
 <div class="p-6 bg-white rounded-lg shadow-lg">
     <h1 class="text-2xl font-bold text-gray-900">Detalles del Grupo</h1>
     <div class="mt-6">
-        <a href="{{ route('crearActividad', $group->id) }}" class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">
+        <a href="{{ route('crear-actividad', $group->id) }}" class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">
             Crear Actividad
         </a>
     </div>
