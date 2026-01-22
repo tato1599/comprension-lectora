@@ -11,11 +11,6 @@
 
 El objetivo principal de esta aplicación es mejorar la comprensión lectora y facilitar las actividades relacionadas con la lectura y la escritura.
 
-Algunas de las características clave incluyen:
-
-- [Descripción de una característica importante](URL_DE_DOCUMENTACION_DE_CARACTERISTICA).
-- [Descripción de otra característica importante](URL_DE_DOCUMENTACION_DE_CARACTERISTICA).
-- [Descripción de otra característica importante](URL_DE_DOCUMENTACION_DE_CARACTERISTICA).
 
 ## Aprendizaje
 
